@@ -36,7 +36,7 @@ jobs:
         run: |
           # Verify kb_sdk_actions clone worked
           test -f "$HOME/kb_sdk_actions/bin/kb-sdk" && echo "CI files cloned"
-          docker pull "kbase/kb-sdk:/latest"
+          docker pull "kbase/kb-sdk:latest"
           sh $GITHUB_WORKSPACE/kb_sdk_actions/bin/make_testdir \
           && echo "Created test_local"
           test -f "test_local/test.cfg" && echo "Confirmed config exists"
