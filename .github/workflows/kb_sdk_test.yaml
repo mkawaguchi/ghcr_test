@@ -22,18 +22,11 @@ jobs:
       if: "!contains(github.event.head_commit.message, 'skip ci')"
       uses: actions/checkout@v2
 
-    # - name: Check out Actions CI files
-    #   if: "!contains(github.event.head_commit.message, 'skip ci')"
-    #   uses: actions/checkout@v2
-    #   with:
-    #     repository: 'kbaseapps/kb_sdk_actions'
-    #     path: 'kb_sdk_actions'
-
     - name: Check file existence
-       id: check_files
-       uses: andstor/file-existence-action@v1
-       with:
-          files: "kbase.yml"
+      id: check_files
+      uses: andstor/file-existence-action@v1
+      with:
+        files: "kbase.yml"
 
 
     - name: Set up test environment
