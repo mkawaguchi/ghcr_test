@@ -28,9 +28,15 @@ jobs:
         repository: 'kbaseapps/kb_sdk_actions'
         path: 'kb_sdk_actions'
 
+    - name: Check file existence
+       id: check_files
+       uses: andstor/file-existence-action@v1
+       with:
+          files: "kbase.yml"
+
 
     - name: Set up test environment
-      if: "!contains(github.event.head_commit.message, 'skip ci')"
+      if: "steps.check_files.outputs.files_exists == 'true'" && "!contains(github.event.head_commit.message, 'skip ci')"
       shell: bash
       env:
         KBASE_TEST_TOKEN: ${{ secrets.KBASE_TEST_TOKEN }}
@@ -44,7 +50,7 @@ jobs:
         test -f "test_local/test.cfg" && echo "Confirmed config exists"
 
     - name: Configure authentication
-      if: "!contains(github.event.head_commit.message, 'skip ci')"
+      if: "steps.check_files.outputs.files_exists == 'true'" &&  "!contains(github.event.head_commit.message, 'skip ci')"
       shell: bash
       env:
         KBASE_TEST_TOKEN: ${{ secrets.KBASE_TEST_TOKEN }}
@@ -53,7 +59,7 @@ jobs:
         sed -ie "s/^test_token=.*$/&$KBASE_TEST_TOKEN/g" ./test_local/test.cfg
 
     - name: Run tests
-      if: "!contains(github.event.head_commit.message, 'skip ci')"
+      if: "steps.check_files.outputs.files_exists == 'true'" &&  "!contains(github.event.head_commit.message, 'skip ci')"
       shell: bash
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
