@@ -22,12 +22,12 @@ jobs:
       if: "!contains(github.event.head_commit.message, 'skip ci')"
       uses: actions/checkout@v2
 
-    - name: Check out Actions CI files
-      if: "!contains(github.event.head_commit.message, 'skip ci')"
-      uses: actions/checkout@v2
-      with:
-        repository: 'kbaseapps/kb_sdk_actions'
-        path: 'kb_sdk_actions'
+    # - name: Check out Actions CI files
+    #   if: "!contains(github.event.head_commit.message, 'skip ci')"
+    #   uses: actions/checkout@v2
+    #   with:
+    #     repository: 'kbaseapps/kb_sdk_actions'
+    #     path: 'kb_sdk_actions'
 
     - name: Check file existence
        id: check_files
@@ -65,5 +65,5 @@ jobs:
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       run: |
-        sh $GITHUB_WORKSPACE/kb_sdk_actions/bin/kb-sdk test
+        sh kb-sdk test
         bash <(curl -s https://codecov.io/bash)
