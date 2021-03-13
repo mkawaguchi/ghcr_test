@@ -12,7 +12,6 @@ docker build --build-arg BUILD_DATE="$DATE" \
              --build-arg BRANCH="$GITHUB_HEAD_REF" \
              --build-arg PULL_REQUEST="$PR" \
              --label us.kbase.vcs-pull-req="$PR" \
-             --squash \
              -t ghcr.io/"$MY_ORG"/"$MY_APP":"pr-""$PR" .
 docker push ghcr.io/"$MY_ORG"/"$MY_APP":"pr-""$PR"
 	
